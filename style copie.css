@@ -1,0 +1,1209 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 999999;
+
+  touch-action: none;
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.bgApp {
+  background-color: #666666ff;
+  background-size: 100vw 100vh;
+}
+
+.full_bg_image {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -100;
+}
+
+.error_message_screen {
+  position: absolute;
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.error_message {
+  width: 90%;
+  font-size: 5vw;
+  color: white;
+}
+
+#installation_guide {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+#instructions_iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 999999;
+
+  touch-action: none;
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+/*                     APP LOADING                      */
+/* ---------------------------------------------------- */
+
+.lds-ellipsis {
+  /* adapted from https://loading.io/css/ ; they have a license for a free use of it */
+  display: inline-block;
+  position: fixed;
+  left: 27.5vw;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  top: 56vh;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  background: dodgerblue;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 10vw;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 10vw;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 20vw;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 30vw;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(10vw, 0);
+  }
+}
+
+.appIsLoading {
+  position: absolute;
+  top: 50vh;
+  transform: translate(-50%, -50%);
+
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-name: alternate_appear_disappear;
+}
+
+@keyframes alternate_appear_disappear {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+/* ---------------------------------------------------- */
+
+#spaceship {
+  position: fixed;
+  top: 50vh;
+  left: 0vw;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: auto;
+  z-index: 2;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-name: landing;
+}
+
+@keyframes landing {
+  0% {
+    width: 50vw;
+    left: 0vw;
+    z-index: 2
+  }
+
+  100% {
+    width: 35vw;
+    left: 25vw;
+    z-index: 1
+  }
+}
+
+.ice {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+
+  animation-name: ice_animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ice_animation {
+  0% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.0;
+  }
+
+  100% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.2;
+  }
+}
+
+@keyframes ice_breaking {
+
+  /* called inside app.js */
+  0% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.2;
+  }
+
+  100% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.0;
+  }
+}
+
+#ice_upper {
+  clip: rect(0, 100vw, 50vh, 0);
+}
+
+#ice_lower {
+  clip: rect(50vh, 100vw, 100vh, 0);
+}
+
+.hidden {
+  display: none;
+}
+
+.split {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.upper {
+  top: 0;
+  height: 49.9vh;
+  z-index: 2;
+}
+
+.lower {
+  bottom: 0;
+  height: 49.9vh;
+  z-index: 3;
+}
+
+.blinkable:after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #FFFFFF;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.5s;
+}
+
+.blinkable:active:after {
+  opacity: 0.6;
+}
+
+.upper.separate {
+  border-bottom-style: solid;
+  border-bottom-width: 0.3vh;
+}
+
+.lower.separate {
+  border-top-style: solid;
+  border-top-width: 0.3vh;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centered-vertically {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cost_indicator {
+  position: absolute;
+  top: 12%;
+  right: 5%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: red;
+  font-size: 15vw;
+}
+
+.goUp {
+  position: absolute;
+  animation-name: goUp_animation;
+  /*animation-duration: 1s;*/
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes goUp_animation {
+  0% {
+    top: 20vh;
+    opacity: 1.0;
+  }
+
+  100% {
+    top: 10vh;
+    opacity: 0.0;
+  }
+}
+
+.waiting_for_outcome_gif {
+  opacity: 0;
+  position: absolute;
+  width: 75%;
+  height: auto;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#lottery {
+  animation-name: lottery_entry;
+  /*animation-duration: 3.5s;*/
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes lottery_entry {
+  0% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.0;
+  }
+
+  30% {
+    padding: 0px 0px 0px 0px;
+    opacity: 1.0;
+  }
+
+  90% {
+    padding: 0px 0px 0px 0px;
+    opacity: 1.0;
+  }
+
+  100% {
+    padding: 0px 0px 0px 0px;
+    opacity: 0.0;
+  }
+}
+
+.outcome_image {
+  position: absolute;
+  width: 35vw;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.goUpOutcomeImage {
+  position: absolute;
+  animation-name: goUpOutcome_animation;
+  /*animation-duration: 2s;*/
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes goUpOutcome_animation {
+  0% {
+    padding: 0px 0px 0% 0px;
+    opacity: 0.0;
+  }
+
+  100% {
+    padding: 0px 0px 20% 0px;
+    opacity: 1.0;
+  }
+}
+
+#superimposed_outcome_sum {
+  position: absolute;
+  font-size: 6vw;
+  top: 50%;
+  /* Adjust this value to move the positioned div up and down */
+  left: 50%;
+  /*background: rgba(0, 0, 0, 0.8);*/
+  color: rgb(240, 240, 240);
+  text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+}
+
+.outcome_text {
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  white-space: nowrap;
+  font-size: 7.1vw;
+}
+
+.appearSlowlyOutcomeText {
+  position: absolute;
+  animation-name: appearSlowlyText_animation;
+  /*animation-duration: 2s;*/
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appearSlowlyText_animation {
+  0% {
+    opacity: 0.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
+}
+
+.goodByeMessage {
+  position: absolute;
+  top: 83%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  animation-name: appearSlowlyText_animation;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+#cover {
+  top: 50vh;
+  left: 57vw;
+  width: 85vw;
+  height: 35vh;
+  z-index: 1;
+}
+
+
+/*
+.disappear-left {
+  animation-name: disappear_left_animation;
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-direction: normal;  
+}
+@keyframes disappear_left_animation {
+  from { padding: 0px 0px 0px 0px; opacity: 100%; }
+  to { padding: 0px 100% 0px 0px; opacity: 30% }
+}
+*/
+
+.stretched {
+  position: absolute;
+}
+
+.stretched.horizontal {
+  width: 100%;
+}
+
+.stretched.vertical {
+  height: 100%;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+h1 {
+  color: dodgerblue;
+  font-size: 12vw;
+}
+
+.jspsych-html-button-response-button button {
+  font-size: 4rem;
+}
+
+.most_in_front {
+  position: absolute;
+  z-index: 100;
+}
+
+.text_box {
+  box-sizing: border-box;
+  width: 70vw;
+  line-height: 5vw;
+  text-align: center;
+
+  border: 0.5vw solid rgb(100, 100, 100);
+  background-color: rgba(220, 220, 220, 0.75);
+  border-radius: 15px;
+}
+
+.goodByeMessageTextSize {
+  line-height: 5vw;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 6vw;
+
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-name: alternate_appear_disappear;
+}
+
+/*                     FOR INSTRUCTIONS                  */
+/* ----------------------------------------------------- */
+
+.bg_instructions {
+  background-color: #666666ff;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  overscroll-behavior: none;
+}
+
+#instructionsButtons {
+  position: relative;
+  display: block;
+  top: 49.5vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28vw;
+  height: 5.5vh;
+  margin-right: 12vw;
+  margin-left: auto;
+
+  background-color: rgba(200, 200, 200, 0.7);
+  border: 0.5vw solid rgb(50, 50, 50);
+  color: rgb(50, 50, 50);
+  text-align: center;
+  font-size: 4.2vw;
+  transition-duration: 0.4s;
+  border-radius: 25px;
+  outline: none;
+  z-index: 999;
+}
+
+#instructionsButtons:active {
+  background-color: #555555;
+  color: white;
+}
+
+#post_test_msg {
+  font-size: 5vw;
+  padding: 6vw;
+  line-height: normal;
+}
+
+#post_instructions_test_image {
+  width: 70vw;
+  height: auto;
+  border-radius: 3vw;
+}
+
+#jspsych-instructions-next {
+  background-color: rgba(200, 200, 200, 0.7);
+  border: 1vw solid rgb(50, 50, 50);
+  color: rgb(50, 50, 50);
+  font-size: 6vw;
+  border-radius: 40px;
+  outline: none;
+}
+
+#jspsych-instructions-next:active {
+  background-color: #555555;
+  color: white;
+}
+
+/* Instructions Tests stuff: */
+#test_question_text {
+  font-size: 7vw;
+  line-height: normal;
+  margin-bottom: 5vh;
+}
+
+#multipleChoiceQuestionsButtons {
+  position: relative;
+  background-color: rgb(230, 230, 230);
+  width: 90vw;
+  border: 0.3vw solid rgb(50, 50, 50);
+  color: rgb(50, 50, 50);
+  font-size: 5vw;
+  text-align: left;
+  border-radius: 15px;
+  margin: 1vh;
+  padding: 1.5vh;
+  outline: none;
+}
+
+#multipleChoiceQuestionsButtons:active {
+  background-color: #555555;
+  color: white;
+}
+
+.correctAnswerBlink {
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  animation-name: alternate_appear_disappear;
+}
+
+/*                   EMBEDDED DEMO STUFF                 */
+/* ----------------------------------------------------- */
+/* TEMP TEMP TEMP maybe take stuff from here
+.demoTextBox {
+  position: absolute;
+  /*align-items: center;*-/
+  background-color: rgb(225, 229, 235);
+  top: 14vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  border-radius: 35px;
+  border: 0.8vw solid rgb(50,50,50);
+
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-name: spreading;
+}
+@keyframes spreading {
+  0%   { width: 0; max-height: 0 } /* top right bottom left *-/
+  50%  { width: 80vw; max-height: 0 }
+  100%  { width: 80vw; max-height: 20vh }
+}
+ TEMP TEMP TEMP */
+
+.demoTextBox {
+  position: absolute;
+  background-color: rgb(225, 229, 235);
+  top: 14vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 17.5px;
+  border: 0.8vw solid rgb(50, 50, 50);
+
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-name: spreading;
+}
+
+@keyframes spreading {
+  0% {
+    width: 0;
+    height: 0
+  }
+
+  /* top right bottom left */
+  50% {
+    width: 92vw;
+    max-height: 0
+  }
+
+  100% {
+    width: 92vw;
+    max-height: 23vh
+  }
+}
+
+.demoText {
+  padding-left: 2vw;
+  padding-right: 2vw;
+  line-height: normal;
+  text-align: center;
+  color: black;
+  font-size: 3.5vw;
+
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-timing-function: steps(100, end);
+  animation-fill-mode: forwards;
+  animation-name: appearGradually;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+@keyframes appearGradually {
+  0% {
+    opacity: 0.0
+  }
+
+  100% {
+    opacity: 1.0
+  }
+}
+
+/* draw a smartphone screen */
+.bigRectangle {
+  position: absolute;
+  top: 62%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 70vh;
+  border: 0.5vw solid rgb(100, 100, 100);
+  border-radius: 5vw;
+}
+
+.appInBigRectangle {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 62.25%;
+  border: 0.5vw solid rgb(100, 100, 100);
+  border-top-left-radius: 5vw;
+  border-top-right-radius: 5vw;
+}
+
+#simulatedSmartphoneButtonArea {
+  position: absolute;
+  left: 50%;
+  top: 93%;
+  background-color: rgba(150, 150, 150, 0.1);
+  height: 8%;
+  width: 70%;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  border-bottom-left-radius: 5vw;
+  border-bottom-right-radius: 5vw;
+  border-top: 0.5vw solid rgb(100, 100, 100);
+}
+
+.appLine {
+  text-align: center;
+  margin: 0;
+}
+
+.smallRectangle {
+  display: inline-block;
+  width: 12vw;
+  height: 6.5vh;
+  margin-left: 1.7vw;
+  margin-right: 1.7vw;
+  margin-top: 1.8vh;
+  margin-bottom: 1.8vh;
+  border: 0.5vw solid transparent;
+  background-color: rgba(200, 200, 200, 0.35);
+  overflow: hidden;
+  border-radius: 7.5px;
+}
+
+.appIconSpecifics {
+  display: inline-block;
+  width: 13vw;
+  height: calc(6.5vh + 1vw);
+  margin-left: 1.7vw;
+  margin-right: 1.7vw;
+  margin-top: 1.8vh;
+  margin-bottom: 1.8vh;
+  overflow: hidden;
+  border-radius: 7.5px;
+}
+
+#dotContainerElement {
+  text-align: center;
+  margin: 0;
+}
+
+.dot {
+  display: inline-block;
+  height: 1vh;
+  width: 1vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  background-color: rgba(200, 200, 200, 0.7);
+  border-radius: 50%;
+}
+
+.demoButton {
+  position: absolute;
+  top: 92.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20vw;
+  height: 5vh;
+
+  background-color: rgba(200, 200, 200, 0.4);
+  border: 1vw solid rgba(85, 85, 85, 1);
+  color: black;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 3vw;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  border-radius: 50px;
+  outline: none;
+  z-index: 999;
+
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  animation-name: appearGradually;
+}
+
+.demoButton:active {
+  background-color: rgba(85, 85, 85, 1);
+  color: white;
+}
+
+.loadButton {
+  position: absolute;
+  background-color: transparent;
+  border-radius: 7.5px;
+  outline: none;
+  border-width: 0;
+}
+
+.loadButton:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.appClose {
+  position: absolute;
+  animation-name: appClose_animation;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appClose_animation {
+  0% {
+    padding: 0px 0px 0px 0px;
+    opacity: 1.0;
+  }
+
+  100% {
+    padding: 0px 0px 20% 0px;
+    opacity: 0.0;
+    width: 12vw;
+    height: 6vh;
+    top: 74.5%;
+    left: 58%;
+    border: none;
+    border-radius: 15px;
+  }
+}
+
+.appOpen {
+  position: absolute;
+  animation-name: appOpen_animation;
+  animation-duration: 0.3s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
+
+@keyframes appOpen_animation {
+  0% {
+    padding: 0px 0px 0px 0px;
+    opacity: 1.0;
+  }
+
+  100% {
+    padding: 0px 0px 20% 0px;
+    opacity: 0.0;
+    width: 12vw;
+    height: 6vh;
+    top: 74.5%;
+    left: 58%;
+    border: none;
+    border-radius: 15px;
+  }
+}
+
+/* ----------------------------------------------------- */
+
+
+.disabled {
+  pointer-events: none;
+}
+
+#repeatOrContinueButtons {
+  position: relative;
+  width: 40vw;
+  background-color: rgba(200, 200, 200, 0.7);
+  border: 1vw solid rgb(50, 50, 50);
+  color: rgb(50, 50, 50);
+  font-size: 5vw;
+  border-radius: 30px;
+  outline: none;
+}
+
+#repeatOrContinueButtons:active {
+  background-color: #555555;
+  color: white;
+}
+
+#repeatOrContinueText {
+  position: relative;
+  padding: 3vw;
+  line-height: normal;
+  font-size: 5.5vw;
+}
+
+
+/*                    DIALOG BOX STUFF                   */
+/* ----------------------------------------------------- */
+
+.dialog {
+  width: 80%;
+  min-height: 10%;
+  border-radius: 5vw;
+  background: rgb(200, 200, 200);
+  z-index: 999;
+}
+
+.dialog_text {
+  margin-bottom: 2vh;
+  font-size: 5vw;
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
+#dialog_msg {
+  margin-top: 2.5vh;
+}
+
+.dialog input {
+  font-size: 5vw;
+  /*margin-top: 1vh;*/
+  margin-bottom: 1vh;
+}
+
+.dialog button {
+  border-width: 1px;
+  background: rgb(200, 200, 200);
+  color: black;
+  font-size: 5vw;
+  padding: 1.2vh;
+  margin-bottom: 2vh;
+  border-radius: 2.5vw;
+  border-color: black;
+  outline: none;
+}
+
+.dialog button:active {
+  background-color: #555555;
+  color: white;
+}
+
+.dialog button.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+#screen-disabled-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.8;
+  z-index: 998;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* -------------- warehouse / piggybank ------------------ */
+
+.dialog .warehouse {
+  border-radius: 0;
+  width: 80vw;
+  height: auto;
+}
+
+.dance {
+  animation-name: dance_animation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-timing-function: linear;
+}
+
+@keyframes dance_animation {
+  0% {
+    opacity: 0;
+    transform: rotateY(0deg)
+  }
+
+  /* top right bottom left */
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg)
+  }
+}
+
+#warehouse_empty {
+  margin-bottom: 2vh;
+}
+
+/* -- an image for the message that the real game begins -- */
+
+#game_begins_image {
+  border-radius: 0;
+  width: 75vw;
+  height: auto;
+  margin-bottom: 2vh;
+  border-radius: 4vw;
+}
+
+/* -------------- cave from the outside ------------------ */
+
+#cave {
+  border-radius: 0;
+  width: 55vw;
+  height: auto;
+}
+
+.appear {
+  animation-name: appear_animation;
+  animation-duration: 0.8s;
+  animation-iteration-count: 1;
+}
+
+@keyframes appear_animation {
+  0% {
+    opacity: 0
+  }
+
+  /* top right bottom left */
+  100% {
+    opacity: 1
+  }
+}
+
+/* -------------- coins collection task ------------------ */
+#inside_cave_img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 30vw;
+  z-index: 1000;
+}
+
+.openning {
+  animation-name: openning_animation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes openning_animation {
+  0% {
+    width: 0%;
+    height: 0%;
+    border-radius: 30vw;
+    left: 50%;
+    top: 50%
+  }
+
+  100% {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  /* top right bottom left */
+}
+
+.closing {
+  animation-name: closing_animation;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes closing_animation {
+  0% {
+    width: 100%;
+    height: 100%
+  }
+
+  /* top right bottom left */
+  100% {
+    width: 0%;
+    height: 0%;
+    border-radius: 30vw;
+    left: 50%;
+    top: 50%
+  }
+}
+
+.inside_cave_text {
+  margin: 0;
+  position: absolute;
+  font-size: 15vw;
+  color: rgb(0, 0, 255);
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}
+
+#time_left_counter {
+  left: 90vw;
+  top: 5vh;
+}
+
+#cave_goddbye_message {
+  left: 50vw;
+  top: 50vh;
+}
+
+.caveElement {
+  position: absolute;
+  width: 80vw;
+  height: 30vh;
+  z-index: 1001;
+}
+
+.disappearGradually {
+  animation-name: disappearGradually_animation;
+  animation-duration: 0.15s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes disappearGradually_animation {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

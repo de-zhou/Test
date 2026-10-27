@@ -3,7 +3,7 @@ window.app_settings = {
     base_address: "https://test-iai8.onrender.com",
     ws_base_address: "wss://test-iai8.onrender.com"
   },
-  app_base_adress: "https://github.com/de-zhou/Test",
+  app_base_adress: "https://de-zhou.github.io/Test",
   context: "Test_appli",
   one_time_link: true,
   downloadAllToLocalStorage: false,

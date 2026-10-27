@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Instructions</title>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=0'>
+
+    <script src="mapping_key_to_subId.js"></script>
+    <script src="settings.js"></script>
+    <script src="helpers.js"></script>
+    <script src="logic.js"></script>
+    <script src="data_submition_worker.js"></script>
+
+    <script src="jspsych-6.1.0/jspsych.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-html-button-response.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-html-button-response-and-feedback_Rani.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-external-html.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+    <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+    </link>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+</head>
+
+<body class="bg_instructions">
+    <!-- Loading Screen -->
+    <div id="app_will_load_soon" class="centered appIsLoading">
+        <h1>Loading...</h1>
+    </div>
+    <div id="loading_animation">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</body>
+<script src="handle_events.js"></script>
+<script src="instructions.js"></script>
+
+</html>

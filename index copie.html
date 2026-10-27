@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>App</title>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=0'>
+
+    <script src="mapping_key_to_subId.js"></script>
+    <script src="ongoing_exclusion.js"></script>
+    <script src="settings.js"></script>
+    <script> document.title = app_settings.context.replace(/_/g, ' '); </script> <!-- set the page name dinamically-->
+    <script src="helpers.js"></script>
+    <script src="logic.js"></script>
+    <script src="data_submition_worker.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--
+            this is how to create the icon pack and manifest
+            https://medium.com/@sam20gh/how-to-add-add-to-home-screen-to-your-website-4b07aee02676
+
+            and this is why it can't be automated on all browsers (IOS for example)
+            https://love2dev.com/pwa/add-to-homescreen-library/
+        -->
+    <!--
+            this is how to check if the app is standalone:
+            https://stackoverflow.com/questions/41742390/javascript-to-check-if-pwa-or-mobile-web
+         -->
+    <link rel="apple-touch-icon" sizes="57x57" href="icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" id="manifest-placeholder">
+    <script src="gate_manager.js"></script>
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000000">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="App">
+
+    <!-- Set splash screen for iphones: -->
+    <!------------------------------------------------------------------>
+    <!-- iPhone 5 and SE (640px x 1136px) V -->
+    <link href="splashscreens/iphone5_and_se_splash.png"
+        media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) V -->
+    <link href="splashscreens/iphone6_and_6s_and_7_and_8_splash.png"
+        media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <!-- ** iPhone 6s Plus, 6 Plus , 7 Plus, 8 Plus (1242x x 2208px) V -->
+    <link href="splashscreens/iphone_6plus_6Splus_7plus_8plus_splash.png"
+        media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone X, XS, 11 pro (1125px x 2436px) V -->
+    <link href="splashscreens/iphonex_and_xs_and_11_pro_splash.png"
+        media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone XR and iphone 11 (828px x 1792px) V -->
+    <link href="splashscreens/iphonexr_and_11_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone XS max and iphone 11 pro max (1242px x 2688px) V -->
+    <link href="splashscreens/iphonexsmax_and_11_pro_max_splash.png"
+        media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+
+    <!-- iPhone 12/13 mini (1080px x 2340px V) -->
+    <link href="splashscreens/iphone_12_mini_splash.png"
+        media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone 12/13, 12/13 pro (1170px x 2532px) V -->
+    <link href="splashscreens/iphone_12_and_12_pro_splash.png"
+        media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <!-- iPhone 12/13 pro max (1284px x 2778px) V -->
+    <link href="splashscreens/iphone_12_pro_max_splash.png"
+        media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)"
+        rel="apple-touch-startup-image" />
+    <!------------------------------------------------------------------>
+    <script>
+        // check app loading after the page is loaded
+        checkIfAppStartedRunning = setTimeout(() => {
+            console.log('app not loading... RELOADING page')
+            location.reload()
+        }, 7000)
+    </script>
+    <script src="app.js"></script>
+</head>
+
+<body id="background" class="bgApp" onload="runApp()">
+    <!-- Loading Screen -->
+    <div id="app_will_load_soon" class="centered appIsLoading">
+        <h1>Loading...</h1>
+    </div>
+    <div id="loading_animation">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- App installation guide -->
+    <img id="installation_guide" />
+    <div id="installationProblem" style="width: 90%; background-color: #666666ff; z-index:999;"
+        class="centered error_message hidden">
+        <h2 id='installationProblemMessage'></h2>
+    </div>
+
+    <div id='lottery' class='hidden'></div>
+
+    <div id="main_container" class="container hidden">
+        <img id="planet" class="full_bg_image" src="images/background.jpg" />
+        <img id="spaceship" class="hidden" src="images/spaceship_flying.png" />
+        <img id="ice_upper" class="ice" src="images/ice.jpg" />
+        <img id="ice_lower" class="ice" src="images/ice.jpg" />
+        <h1 id="cost_indicator_1_" class="cost_indicator goUp hidden">-1</h1>
+        <h1 id="outcome_text_1_" class="outcome_text hidden"></h1>
+        <div id="welcome_msg" class="text_box centered hidden most_in_front">
+            <h1 id="welcome_msg_txt" class="text_box2">Hello</h1>
+        </div>
+        <img id="outcome_win" class="outcome_image hidden" src="images/outcome_win.png" />
+        <img id="outcome_loss" class="outcome_image hidden" src="images/outcome_loss.png" />
+        <img id="outcome_no_win" class="outcome_image hidden" src="images/outcome_no_win.png" />
+        <div id="superimposed_outcome_sum" class="centered hidden">
+            <h2 id="superimposed_outcome_sum_txt"></h2>
+        </div>
+        <img id="cover" class="centered hidden in_front" src="images/cover.png" />
+        <div class="split upper separate hidden" id="upper_half"></div>
+        <div class="split lower separate hidden blinkable" id="lower_half"></div>
+        <div id="screen-disabled-mask" class="hidden"></div>
+        <div id="dialog_box" class="centered dialog hidden">
+            <p id="dialog_msg" class="dialog_text">Hello, this is a dialog message</p>
+            <img id="warehouse_empty" class="warehouse appear hidden" src="images/container_gold_empty.png" />
+            <img id="warehouse_half" class="warehouse dance hidden" src="images/container_gold_half.png" />
+            <img id="warehouse_full" class="warehouse dance hidden" src="images/container_gold_full.png" />
+            <img id="cave" class="appear hidden" src="images/cave_from_outside.png" />
+            <img id="game_begins_image" class="appear hidden" src="images/game_title_image.jpg" />
+            <p id="dialog_confirmation_msg" class="dialog_text hidden">Hello, this is a dialog confirmation message</p>
+            <input id="dialog_response_text" type="text" autocomplete="off" />
+            <div><button id="dialog_ok_button">Confirm</button></div>
+        </div>
+        <div id="coin_collection_task" class="">
+            <img id="inside_cave_img" class="openning hidden" src="images/cave.jpg" />
+            <img id="cave_coin" class="caveElement hidden" src="images/outcome_win.png" />
+            <img id="cave_bomb" class="caveElement hidden" src="images/outcome_loss.png" />
+            <img id="cave_rock" class="caveElement hidden" src="images/outcome_no_win.png" />
+            <p id="time_left_counter" class="inside_cave_text"></p>
+            <p id="cave_goddbye_message" class="inside_cave_text"></p>
+        </div>
+    </div>
+</body>
+
+<script src="handle_events.js"></script>
+<script src="coin_collection.js"></script>
+
+</html>
