@@ -42,7 +42,7 @@ def get_random_string(length):
 
 
 def createSubNumDict(
-    ranges=[(101, 200), (201, 300), (301, 400), (701, 800), (801, 900), (901, 1000)],
+    ranges=[(101, 131)],
     key_code_length=20,
 ):
     sub_key_dict = {}
